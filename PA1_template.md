@@ -1,5 +1,5 @@
-Reproducible Research: Peer Assessment 1"
-=========================================
+Reproducible Research: Peer Assessment 1
+========================================
 
 ## Loading and preprocessing the data
 
@@ -166,8 +166,10 @@ cleandata$wDay <- factor((weekdays(cleandata$date) %in% weekdays1),
 
 
 ```r
-ggplot(cleandata, aes(x = interval, y = steps.x)) +
-     facet_grid(wDay ~., scales = "free") +
+newstepsbyday <- aggregate(cbind(steps.x) ~ interval+wDay, data=cleandata, mean)
+
+ggplot(newstepsbyday, aes(x = interval, y = steps.x)) +
+     facet_grid(wDay ~.) +
      geom_line() +
      ylab("Steps") +
      ggtitle("Steps by Day Type")
